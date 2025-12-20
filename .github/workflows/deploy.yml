@@ -3,7 +3,7 @@ name: Deploy Portfolio
 on:
   push:
     branches:
-      - main # Vérifie que ta branche s'appelle bien mainn
+      - main # Vérifie que ta branche s'appelle bien main
 
 jobs:
   deploy:
