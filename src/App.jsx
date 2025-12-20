@@ -89,7 +89,9 @@ const App = () => {
                   deleteSpeed: 50,
                 }}
               />
-              <span className="company-name">à la Préfecture de Police</span>
+              <span className="company-name">
+                à la Préfecture de Policeeeee
+              </span>
             </div>
           </div>
         </motion.div>
