@@ -192,12 +192,13 @@ body {
 
 /* Hero Section */
 .hero {
-  height: 85vh;
+  min-height: 85vh; /* Utilise min-height au lieu de height */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 2rem 1rem; /* Ajoute un padding pour que le texte ne touche pas les bords sur mobile */
 }
 
 h1 {
@@ -407,9 +408,59 @@ html {
   opacity: 0.6;
 }
 
+.menu-toggle {
+  display: none; /* Caché sur PC */
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 1001;
+}
+
 /* On s'assure que le slash disparaisse si les éléments sont l'un sous l'autre */
 @media (max-width: 600px) {
   .loc-separator {
     display: none; /* Cache le slash sur mobile pour un rendu plus propre */
+  }
+}
+
+/* Media query pour les tablettes et mobiles */
+@media (max-width: 768px) {
+  /* On cache toute la section de bienvenue (Titre + Badge Typewriter) */
+
+  /* On cache les liens de navigation */
+  .desktop-nav {
+    display: none !important;
+  }
+
+  /* On cache le bouton burger (menu-toggle) que tu avais ajouté */
+  .menu-toggle {
+    display: none !important;
+  }
+
+  /* On centre le logo DH pour qu'il reste seul en haut */
+  .glass-nav {
+    justify-content: center;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    background: rgba(3, 7, 18, 0.9);
+    backdrop-filter: blur(10px);
+  }
+
+  /* On remonte un peu le contenu pour ne pas avoir un grand vide */
+  #parcours {
+    margin-top: 2rem;
+  }
+}
+
+/* Ajustement spécifique pour les très petits écrans (iPhone SE, etc.) */
+@media (max-width: 400px) {
+  .hero {
+    padding-top: 120px; /* Donne de l'espace par rapport à la nav qui est en sticky */
+  }
+
+  h1 {
+    font-size: 2.2rem;
   }
 }

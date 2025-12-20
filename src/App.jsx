@@ -59,7 +59,7 @@ const App = () => {
         <div className="logo">
           <span>{"{"}</span> DH <span>{"}"}</span>
         </div>
-        <div className="nav-links">
+        <div className="nav-links desktop-nav">
           <a href="#parcours">Parcours</a>
           <a href="#competences">Compétences</a> {/* Ajout */}
           <a href="#projets">Projets</a>
@@ -69,6 +69,7 @@ const App = () => {
 
       <header className="hero">
         <motion.div
+          className="hero-content"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
