@@ -9,6 +9,7 @@ import {
   Database,
   Globe,
   ExternalLink,
+  BookOpen,
   GraduationCap,
   School,
   Terminal,
@@ -194,7 +195,8 @@ const App = () => {
             tag="Game Development"
             desc="Jeu vidéo développé sous Unity avec création de shaders personnalisés (HLSL/ShaderLab)."
             tech={["Unity", "C#", "ShaderLab", "HLSL"]}
-            link="https://github.com/DaluxOnFlux/Whippin-World"
+            githubLink="https://github.com/DaluxOnFlux/Whippin-World"
+            notionLink="https://www.notion.so/E4FI-Projet-Alassane-Traore-Dalil-Hiane-2024-2025-16d517b07e2280c78a45d8d081d62273"
           />
 
           {/* Projet 5: PacMan IA */}
@@ -334,7 +336,15 @@ const ExperienceCard = ({
   </motion.div>
 );
 
-const ProjectCard = ({ title, tag, desc, tech, link }) => (
+const ProjectCard = ({
+  title,
+  tag,
+  desc,
+  tech,
+  link, // Ton lien par défaut actuel
+  githubLink, // Nouveau : lien spécifique GitHub
+  notionLink, // Nouveau : lien spécifique Notion
+}) => (
   <motion.div className="project-card glass-card" whileHover={{ y: -10 }}>
     <div className="project-content">
       <div className="project-header">
@@ -348,9 +358,36 @@ const ProjectCard = ({ title, tag, desc, tech, link }) => (
           <small key={index}>#{t} </small>
         ))}
       </div>
-      <a href={link} target="_blank" rel="noreferrer" className="project-link">
-        Voir le code <ExternalLink size={14} />
-      </a>
+
+      <div
+        className="project-links-container"
+        style={{ display: "flex", gap: "15px", marginTop: "15px" }}
+      >
+        {/* Affichage du lien GitHub (soit githubLink, soit le link par défaut) */}
+        {(githubLink || link) && (
+          <a
+            href={githubLink || link}
+            target="_blank"
+            rel="noreferrer"
+            className="project-link"
+          >
+            GitHub <Github size={14} />
+          </a>
+        )}
+
+        {/* Affichage du lien Notion seulement s'il existe */}
+        {notionLink && (
+          <a
+            href={notionLink}
+            target="_blank"
+            rel="noreferrer"
+            className="project-link"
+            style={{ color: "#ffffff" }}
+          >
+            Notion <BookOpen size={14} />
+          </a>
+        )}
+      </div>
     </div>
   </motion.div>
 );
