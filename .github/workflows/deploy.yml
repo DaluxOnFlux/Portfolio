@@ -1,0 +1,24 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main # Vérifie que ta branche s'appelle bien main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/Portfolio
+            git pull
+            sudo docker build -t mon-portfolio .
+            sudo docker stop portfolio-site || true
+            sudo docker rm portfolio-site || true
+            sudo docker run -d -p 8080:80 --name portfolio-site mon-portfolio
