@@ -120,7 +120,7 @@ const App = () => {
             icon={<Shield />}
           />
           <ExperienceCard
-            date="2020 - 2021"
+            date="2018 - 2021"
             title="BAC Genéral (Spécialité Mathématiques, Sciences de l'Ingénieur)"
             school=" Gaston Bachelard"
             company=" Lycée "
