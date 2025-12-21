@@ -669,3 +669,17 @@ html {
     font-size: 2.2rem;
   }
 }
+
+@media (max-width: 768px) {
+  .chatbot-wrapper {
+    right: 20px; /* On le colle à droite avec une petite marge */
+    bottom: 20px; /* On le descend légèrement aussi */
+  }
+
+  /* Optionnel : Ajuster la taille de la fenêtre de chat sur mobile */
+  .chat-window {
+    width: calc(100vw - 40px); /* Prend presque toute la largeur */
+    right: 0;
+    max-width: 350px;
+  }
+}
