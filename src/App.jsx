@@ -241,6 +241,22 @@ const App = () => {
             tech={["GStreamer", "Direct3D11", "UDP/RTP", "Networking", "Batch"]}
             link="https://github.com/DaluxOnFlux/gst-screen-recorder"
           />
+
+          {/* Projet 6: Pilotage Moteur Pas à Pas (Bas niveau) */}
+          <ProjectCard
+            title="ARM Assembly Motor Control"
+            tag="Systèmes Embarqués"
+            videoSrc="/videos/motor.mp4"
+            desc="Développement en Assembleur ARM Cortex-M4 pour le pilotage de moteurs pas à pas. Gestion précise des registres GPIO, des cycles d'horloge et des séquences de commutation de phases."
+            tech={[
+              "Assembly ARM",
+              "Cortex-M4",
+              "Embedded Systems",
+              "GPIO",
+              "Micro-architecture",
+            ]}
+            link="https://github.com/DaluxOnFlux/arm-cortex-m4-stepper-control"
+          />
         </div>
       </section>
 
