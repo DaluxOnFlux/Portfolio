@@ -175,6 +175,7 @@ const App = () => {
           <ProjectCard
             title="Système Solaire OpenGL"
             tag="Graphisme & Bas Niveau"
+            videoSrc="/videos/opengl.mp4"
             desc="Simulation 3D d'un système solaire utilisant les shaders et les matrices de transformation."
             tech={["C", "C++", "CMake", "OpenGL"]}
             link="https://github.com/DaluxOnFlux/ProjetOpenGL"
@@ -193,6 +194,7 @@ const App = () => {
           <ProjectCard
             title="Whippin-World"
             tag="Game Development"
+            videoSrc="/videos/whippinworld.mp4"
             desc="Jeu vidéo développé sous Unity avec création de shaders personnalisés (HLSL/ShaderLab)."
             tech={["Unity", "C#", "ShaderLab", "HLSL"]}
             githubLink="https://github.com/DaluxOnFlux/Whippin-World"
@@ -203,6 +205,7 @@ const App = () => {
           <ProjectCard
             title="PacMan-IA"
             tag="Intelligence Artificielle"
+            videoSrc="/videos/pacman.mp4"
             desc="Implémentation d'algorithmes de recherche et d'IA pour automatiser le jeu PacMan."
             tech={["Python", "Algorithmique"]}
             link="https://github.com/DaluxOnFlux/PacMan-IA-Projet-E3"
@@ -212,6 +215,7 @@ const App = () => {
           <ProjectCard
             title="Space Invaders"
             tag="Software Architecture"
+            videoSrc="/videos/spaceinvaders.mp4"
             desc="Recréation du jeu classique en mettant l'accent sur les patterns de conception logicielle."
             tech={["C#", "OOP"]}
             link="https://github.com/DaluxOnFlux/Space-Invaders-Projet-E3"
@@ -341,55 +345,77 @@ const ProjectCard = ({
   tag,
   desc,
   tech,
-  link, // Ton lien par défaut actuel
-  githubLink, // Nouveau : lien spécifique GitHub
-  notionLink, // Nouveau : lien spécifique Notion
-}) => (
-  <motion.div className="project-card glass-card" whileHover={{ y: -10 }}>
-    <div className="project-content">
-      <div className="project-header">
-        <Github size={20} />
-        <span className="project-tag">{tag}</span>
-      </div>
-      <h3>{title}</h3>
-      <p>{desc}</p>
-      <div className="project-tech">
-        {tech.map((t, index) => (
-          <small key={index}>#{t} </small>
-        ))}
-      </div>
+  link,
+  githubLink,
+  notionLink,
+  videoSrc,
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-      <div
-        className="project-links-container"
-        style={{ display: "flex", gap: "15px", marginTop: "15px" }}
-      >
-        {/* Affichage du lien GitHub (soit githubLink, soit le link par défaut) */}
-        {(githubLink || link) && (
-          <a
-            href={githubLink || link}
-            target="_blank"
-            rel="noreferrer"
-            className="project-link"
-          >
-            GitHub <Github size={14} />
-          </a>
-        )}
-
-        {/* Affichage du lien Notion seulement s'il existe */}
-        {notionLink && (
-          <a
-            href={notionLink}
-            target="_blank"
-            rel="noreferrer"
-            className="project-link"
-            style={{ color: "#ffffff" }}
-          >
-            Notion <BookOpen size={14} />
-          </a>
+  return (
+    <motion.div
+      className="project-card glass-card"
+      whileHover={{ y: -10 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Container de la vidéo */}
+      <div className={`project-video-container ${isHovered ? "visible" : ""}`}>
+        {videoSrc && isHovered && (
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="project-video"
+          />
         )}
       </div>
-    </div>
-  </motion.div>
-);
+
+      <div className="project-content">
+        <div className="project-header">
+          <Github size={20} />
+          <span className="project-tag">{tag}</span>
+        </div>
+        <h3>{title}</h3>
+        <p>{desc}</p>
+        {/* ... reste de ton code (tech tags et liens) ... */}
+        <div className="project-tech">
+          {tech.map((t, index) => (
+            <small key={index}>#{t} </small>
+          ))}
+        </div>
+
+        <div
+          className="project-links-container"
+          style={{ display: "flex", gap: "15px", marginTop: "15px" }}
+        >
+          {(githubLink || link) && (
+            <a
+              href={githubLink || link}
+              target="_blank"
+              rel="noreferrer"
+              className="project-link"
+            >
+              GitHub <Github size={14} />
+            </a>
+          )}
+          {notionLink && (
+            <a
+              href={notionLink}
+              target="_blank"
+              rel="noreferrer"
+              className="project-link"
+              style={{ color: "#ffffff" }}
+            >
+              Notion <BookOpen size={14} />
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 export default App;
