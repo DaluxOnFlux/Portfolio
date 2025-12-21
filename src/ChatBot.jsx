@@ -35,6 +35,9 @@ const ChatBot = () => {
 
       RÉPONSES COURTES : Max 3-4 lignes. Pas de pavés.
       FORMATAGE : Utilise des tirets (-) pour les listes.
+
+      INFOS SUR LA RÉALISATION DU PORTFOLIO :
+      Dalil a conçu ce portfolio comme une application React moderne. Il est entièrement conteneurisé avec Docker et déployé sur un VPS Google Cloud. Pour automatiser les mises à jour, il a mis en place un pipeline CI/CD avec GitHub Actions. Côté design, il utilise Framer Motion pour les animations et TailwindCSS pour le style.
       
       INFOS PERSONNELLES :
       - Localisation : Dalil habite à Chelles.
