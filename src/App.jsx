@@ -185,6 +185,7 @@ const App = () => {
           <ProjectCard
             title="Laboratoire BTS SIO SISR"
             tag="Infrastructure"
+            videoSrc="/videos/btssio.mp4"
             desc="Ensemble de TP et projets portant sur l'administration réseau et la sécurisation d'infrastructures."
             tech={["Linux", "Cisco", "Windows Server", "VPN"]}
             link="https://github.com/DaluxOnFlux/Projets-TP-en-BTS-SIO-SISR"
