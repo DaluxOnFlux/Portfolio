@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ChatBot from "./ChatBot";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Shield,
@@ -357,6 +358,8 @@ const App = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ChatBot />
     </div>
   );
 };
