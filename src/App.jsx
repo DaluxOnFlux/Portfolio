@@ -119,6 +119,15 @@ const App = () => {
             desc="Gestion, administration et sécurisation des infrastructures réseaux."
             icon={<Shield />}
           />
+          <ExperienceCard
+            date="2020 - 2021"
+            title="BAC Genéral (Spécialité Mathématiques, Sciences de l'Ingénieur)"
+            school=" Gaston Bachelard"
+            company=" Lycée "
+            schoolUrl="http://www.lyceebachelardchelles.fr"
+            desc="Obtention du Baccalauréat Général"
+            icon={<BookOpen />}
+          />
         </div>
       </section>
 
