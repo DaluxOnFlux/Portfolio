@@ -231,6 +231,16 @@ const App = () => {
             tech={["Vite", "Vue3", "Flask", "SQLite", "HTML", "CSS"]}
             link="https://github.com/DaluxOnFlux/quiz_app"
           />
+
+          {/* Projet 5: GStreamer Screen Recorder & Streamer */}
+          <ProjectCard
+            title="GStreamer Streamer & Recorder"
+            tag="Système & Multimédia"
+            videoSrc="/videos/pipeline.mp4"
+            desc="Développement d'un système de capture d'écran temps réel avec diffusion réseau UDP (RTP/JPEG) et archivage local simultané via des pipelines GStreamer complexes."
+            tech={["GStreamer", "Direct3D11", "UDP/RTP", "Networking", "Batch"]}
+            link="https://github.com/DaluxOnFlux/gst-screen-recorder"
+          />
         </div>
       </section>
 
