@@ -102,7 +102,7 @@ const App = () => {
         </motion.h2>
         <div className="timeline">
           <ExperienceCard
-            date="2022 - 2025"
+            date="2023 - 2026"
             title="Ingénieur Informatique (Alternance)"
             company=" Préfecture de Police de Paris"
             school=" ESIEE Paris"
@@ -111,7 +111,7 @@ const App = () => {
             icon={<Code />}
           />
           <ExperienceCard
-            date="2020 - 2022"
+            date="2021 - 2023"
             title="BTS SIO SISR (Option Cybersécurité) (Alternance)"
             company=" Préfecture de Police de Paris"
             school=" UTEC Emerainville"
