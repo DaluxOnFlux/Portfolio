@@ -257,6 +257,16 @@ const App = () => {
             ]}
             link="https://github.com/DaluxOnFlux/arm-cortex-m4-stepper-control"
           />
+
+          {/* Projet : US Health Data Analysis Dashboard */}
+          <ProjectCard
+            title="US Health Data Dashboard"
+            tag="Data Engineering & Dash"
+            videoSrc="/videos/dashboard-covid.mp4"
+            desc="Conception d'un dashboard interactif analysant les données de mortalité du CDC aux USA. Intégration d'un pipeline de récupération de données automatisé et visualisations dynamiques."
+            tech={["Python", "Dash", "Plotly", "Pandas", "ETL"]}
+            link="https://github.com/DaluxOnFlux/Covid19-Data-Analysis-Python"
+          />
         </div>
       </section>
 
