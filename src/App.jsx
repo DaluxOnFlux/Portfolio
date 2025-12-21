@@ -221,6 +221,16 @@ const App = () => {
             tech={["C#", "OOP"]}
             link="https://github.com/DaluxOnFlux/Space-Invaders-Projet-E3"
           />
+
+          {/* Projet 4: Projet Quiz App */}
+          <ProjectCard
+            title="Quiz App"
+            tag="Dev FRONT & BACK"
+            videoSrc="/videos/quizapp.mp4"
+            desc="Une application web complète permettant à un joueur de passer un quiz avec score final, et à un administrateur d'ajouter, modifier ou supprimer des questions via une interface sécurisée."
+            tech={["Vite", "Vue3", "Flask", "SQLite", "HTML", "CSS"]}
+            link="https://github.com/DaluxOnFlux/quiz_app"
+          />
         </div>
       </section>
 
