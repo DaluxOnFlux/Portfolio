@@ -324,6 +324,19 @@ const App = () => {
 
             <div className="footer-bottom">
               <p>© 2025 Dalil HIANE</p>
+              <div className="infra-stack">
+                <span className="stack-item">
+                  <Server size={12} /> Déployé sur VPS Google Cloud
+                </span>
+                <span className="stack-divider">|</span>
+                <span className="stack-item">
+                  <Database size={12} /> Conteneurisé avec Docker
+                </span>
+                <span className="stack-divider">|</span>
+                <span className="stack-item">
+                  <Shield size={12} /> Pipeline CI/CD GitHub Actions
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>

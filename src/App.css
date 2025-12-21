@@ -435,7 +435,41 @@ html {
   padding-top: 2rem;
   font-size: 0.8rem;
   color: var(--text-dim);
-  opacity: 0.6;
+  opacity: 0.8; /* Légèrement plus visible */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.infra-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  font-family: "Courier New", Courier, monospace; /* Style un peu "code" */
+  font-size: 0.75rem;
+  color: var(--primary);
+}
+
+.stack-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stack-divider {
+  color: var(--glass-border);
+}
+
+@media (max-width: 600px) {
+  .infra-stack {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .stack-divider {
+    display: none;
+  }
 }
 
 .menu-toggle {
