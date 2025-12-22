@@ -10,6 +10,7 @@ const Terminal = ({ isOpen, onClose }) => {
   ]);
   const [input, setInput] = useState("");
   const [currentDir, setCurrentDir] = useState("~");
+  const [isWaitingForPassword, setIsWaitingForPassword] = useState(false); // État pour sudo
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -60,25 +61,21 @@ const Terminal = ({ isOpen, onClose }) => {
 
   const handleTerminalClick = () => inputRef.current?.focus();
 
-  // --- LOGIQUE D'AUTO-COMPLÉTION ---
   const handleTabCompletion = () => {
+    if (isWaitingForPassword) return;
     const parts = input.trim().split(" ");
-    if (parts.length < 2) return; // Il faut au moins une commande et un début de nom
+    if (parts.length < 2) return;
 
     const command = parts[0];
     const partialName = parts[1].toLowerCase();
-
-    // On récupère le contenu du dossier actuel
     const dirKey = currentDir === "~" ? "~" : currentDir;
     const availableItems = fileSystem[dirKey].content;
 
-    // On cherche les correspondances (on enlève le "/" final pour la recherche si c'est un dossier)
     const matches = availableItems.filter((item) =>
       item.toLowerCase().replace("/", "").startsWith(partialName)
     );
 
     if (matches.length === 1) {
-      // S'il n'y a qu'une seule possibilité, on complète l'input
       const completedName = matches[0];
       setInput(`${command} ${completedName}`);
     }
@@ -86,10 +83,14 @@ const Terminal = ({ isOpen, onClose }) => {
 
   const commands = {
     help: () =>
-      "Commands: ls, cd [dir], cat [file], clear, whoami, contact, exit",
+      "Commands: ls, cd [dir], cat [file], clear, whoami, contact, exit, sudo",
     whoami: () =>
       "Dalil Hiane - Ingénieur Informatique @ ESIEE Paris & Préfecture de Police.",
     contact: () => "Email: hianedalil4@gmail.com | GitHub: DaluxOnFlux",
+    sudo: () => {
+      setIsWaitingForPassword(true);
+      return null; // Le message est géré par l'affichage du prompt password
+    },
     clear: () => {
       setHistory([]);
       return null;
@@ -126,13 +127,33 @@ const Terminal = ({ isOpen, onClose }) => {
   };
 
   const handleKeyDown = (e) => {
-    // INTERCEPTION DE LA TOUCHE TAB
     if (e.key === "Tab") {
-      e.preventDefault(); // Empêche de changer de focus
+      e.preventDefault();
       handleTabCompletion();
     }
 
     if (e.key === "Enter") {
+      const promptInfo = `dalil@portfolio:${currentDir}$`;
+
+      if (isWaitingForPassword) {
+        // Logique de réponse après avoir "tapé" le mot de passe
+        setHistory((prev) => [
+          ...prev,
+          {
+            type: "command",
+            prompt: "[sudo] password for visitor:",
+            content: "********",
+          },
+          {
+            type: "output",
+            content: "Nice try! Only me has access here X).",
+          },
+        ]);
+        setIsWaitingForPassword(false);
+        setInput("");
+        return;
+      }
+
       const parts = input.trim().split(" ");
       const cmd = parts[0].toLowerCase();
       const arg = parts[1];
@@ -142,16 +163,24 @@ const Terminal = ({ isOpen, onClose }) => {
         : cmd !== ""
         ? `command not found: ${cmd}`
         : "";
-      const promptInfo = `dalil@portfolio:${currentDir}$`;
 
       const newHistory = [
         ...history,
         { type: "command", prompt: promptInfo, content: input },
       ];
-      if (result !== null) newHistory.push({ type: "output", content: result });
 
-      if (cmd === "clear") setHistory([]);
-      else setHistory(newHistory);
+      if (cmd === "sudo") {
+        // On n'ajoute pas d'output tout de suite pour sudo, on attend le password
+        setHistory(newHistory);
+      } else if (result !== null) {
+        newHistory.push({ type: "output", content: result });
+        if (cmd === "clear") setHistory([]);
+        else setHistory(newHistory);
+      } else {
+        if (cmd === "clear") setHistory([]);
+        else setHistory(newHistory);
+      }
+
       setInput("");
     }
   };
@@ -203,14 +232,17 @@ const Terminal = ({ isOpen, onClose }) => {
               ))}
               <div className="terminal-input-line">
                 <span style={{ color: "#6366f1", fontWeight: "bold" }}>
-                  dalil@portfolio:{currentDir}$
+                  {isWaitingForPassword
+                    ? "[sudo] password for visitor:"
+                    : `dalil@portfolio:${currentDir}$`}
                 </span>
                 <input
                   ref={inputRef}
                   autoFocus
+                  type={isWaitingForPassword ? "password" : "text"}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown} // Utilisation du nouveau handler
+                  onKeyDown={handleKeyDown}
                   style={{
                     color: "#ffffff",
                     marginLeft: "10px",
