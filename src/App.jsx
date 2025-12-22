@@ -22,6 +22,7 @@ import {
 import Typewriter from "typewriter-effect";
 import "./App.css";
 import TerminalComponent from "./Terminal.jsx";
+import StatusBadge from "./StatusBadge.jsx";
 
 const App = () => {
   const [showButton, setShowButton] = useState(false);
@@ -400,6 +401,7 @@ const App = () => {
             </div>
 
             <div className="footer-bottom">
+              <StatusBadge />
               <p>© 2025 Dalil HIANE</p>
               <div className="infra-stack">
                 <span className="stack-item">

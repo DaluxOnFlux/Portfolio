@@ -998,3 +998,67 @@ html {
     min-width: auto !important;
   }
 }
+
+.status-badge-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "JetBrains Mono", monospace; /* Ou ta police terminal */
+  font-size: 11px;
+  gap: 12px;
+}
+
+.status-dot-wrapper {
+  position: relative;
+  width: 8px;
+  height: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e; /* Vert brillant */
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
+.status-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  position: absolute;
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.status-info {
+  display: flex;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.status-label {
+  color: #6366f1; /* Bleu-violet pour les labels */
+  font-weight: bold;
+}
+
+.status-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
