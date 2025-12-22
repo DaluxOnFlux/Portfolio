@@ -11,10 +11,14 @@ const Terminal = ({ isOpen, onClose }) => {
   const [input, setInput] = useState("");
   const [currentDir, setCurrentDir] = useState("~");
   const [isWaitingForPassword, setIsWaitingForPassword] = useState(false);
+
+  // --- ÉTATS POUR L'HISTORIQUE DES COMMANDES ---
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Logo découpé en lignes pour l'affichage côte à côte
   const asciiLogoLines = [
     "                    ",
     "                    ",
@@ -159,6 +163,30 @@ const Terminal = ({ isOpen, onClose }) => {
       handleTabCompletion();
     }
 
+    // --- NAVIGATION DANS L'HISTORIQUE (HAUT / BAS) ---
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const newIndex = historyIndex + 1;
+        if (newIndex < commandHistory.length) {
+          setHistoryIndex(newIndex);
+          setInput(commandHistory[commandHistory.length - 1 - newIndex]);
+        }
+      }
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setInput(commandHistory[commandHistory.length - 1 - newIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput("");
+      }
+    }
+
     if (e.key === "Enter") {
       const promptInfo = `dalil@portfolio:${currentDir}$`;
 
@@ -180,7 +208,15 @@ const Terminal = ({ isOpen, onClose }) => {
         return;
       }
 
-      const parts = input.trim().split(" ");
+      const cleanInput = input.trim();
+
+      // Ajouter à l'historique des commandes si non vide
+      if (cleanInput !== "") {
+        setCommandHistory((prev) => [...prev, input]);
+        setHistoryIndex(-1); // Reset l'index après validation
+      }
+
+      const parts = cleanInput.split(" ");
       const cmd = parts[0].toLowerCase();
       const arg = parts[1];
 
