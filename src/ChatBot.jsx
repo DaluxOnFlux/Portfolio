@@ -139,7 +139,7 @@ const ChatBot = () => {
               "Désolé, je ne peux pas répondre à cette question car elle sort du cadre professionnel de ce portfolio.",
           },
         ]);
-        startCooldown(10); // On lance quand même le cooldown pour éviter le spam
+        startCooldown(5); // On lance quand même le cooldown pour éviter le spam
         return;
       }
 
@@ -150,7 +150,7 @@ const ChatBot = () => {
           ...prev,
           { role: "assistant", content: botReply },
         ]);
-        startCooldown(10);
+        startCooldown(5); // Cooldown de 5 secondes entre chaque question
       }
     } catch (error) {
       setMessages((prev) => [

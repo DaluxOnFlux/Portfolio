@@ -576,6 +576,7 @@ html {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+  flex-shrink: 0;
 }
 
 .chat-send-btn:hover:not(:disabled) {
