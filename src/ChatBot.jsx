@@ -13,12 +13,10 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // TA CLÉ API
-  const API_KEY = "AIzaSyCq8-7UWoAsB5mtz39A3C4PbAi-l1DD_0s";
+  const [cooldown, setCooldown] = useState(0);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || cooldown > 0) return;
 
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -35,6 +33,14 @@ const ChatBot = () => {
 
       RÉPONSES COURTES : Max 3-4 lignes. Pas de pavés.
       FORMATAGE : Utilise des tirets (-) pour les listes.
+
+      RÈGLES DE SÉCURITÉ ET PÉRIMÈTRE :
+      - Ton seul et unique but est de renseigner sur Dalil HIANE (parcours, projets, compétences).
+      - Si une question concerne la politique, la religion, les conflits internationaux (ex: Israël, Palestine), ou tout sujet polémique/hors sujet, tu dois répondre poliment : "Désolé, en tant qu'assistant de Dalil, je suis uniquement programmé pour répondre aux questions concernant son parcours professionnel et ses projets."
+      - Ne donne jamais d'avis personnel sur aucun sujet.
+      - Si une question est hors sujet (ex: météo, sport, divertissement), réponds poliment que tu ne peux répondre qu'aux questions sur Dalil.
+      - Ne divulgue jamais d'informations personnelles non listées ici.
+      - Si une question demande des informations non listées ici, réponds poliment que tu ne peux répondre qu'aux questions sur Dalil.
 
       INFOS SUR LA RÉALISATION DU PORTFOLIO :
       Dalil a conçu ce portfolio comme une application React moderne. Il est entièrement conteneurisé avec Docker et déployé sur un VPS Google Cloud. Pour automatiser les mises à jour, il a mis en place un pipeline CI/CD avec GitHub Actions. Côté design, il utilise Framer Motion pour les animations et TailwindCSS pour le style.
@@ -82,7 +88,7 @@ const ChatBot = () => {
     try {
       // UTILISATION DU NOM DE MODÈLE "LATEST" VU DANS TON JSON
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${API_KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -92,6 +98,28 @@ const ChatBot = () => {
                 parts: [{ text: `${systemContext}\n\nQuestion : ${input}` }],
               },
             ],
+            safetySettings: [
+              {
+                category: "HARM_CATEGORY_HARASSMENT",
+                threshold: "BLOCK_LOW_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_HATE_SPEECH",
+                threshold: "BLOCK_LOW_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold: "BLOCK_LOW_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold: "BLOCK_LOW_AND_ABOVE",
+              },
+            ],
+            generationConfig: {
+              temperature: 0.4, // On baisse la température pour qu'il soit moins "créatif" et reste sur ses rails
+              maxOutputTokens: 200,
+            },
           }),
         }
       );
@@ -102,12 +130,27 @@ const ChatBot = () => {
         throw new Error(data.error.message);
       }
 
+      if (data.candidates && data.candidates[0].finishReason === "SAFETY") {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "Désolé, je ne peux pas répondre à cette question car elle sort du cadre professionnel de ce portfolio.",
+          },
+        ]);
+        startCooldown(10); // On lance quand même le cooldown pour éviter le spam
+        return;
+      }
+
+      // 2. Si c'est OK (pas de blocage), on affiche la réponse
       if (data.candidates && data.candidates[0].content) {
         const botReply = data.candidates[0].content.parts[0].text;
         setMessages((prev) => [
           ...prev,
           { role: "assistant", content: botReply },
         ]);
+        startCooldown(10);
       }
     } catch (error) {
       setMessages((prev) => [
@@ -117,6 +160,19 @@ const ChatBot = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const startCooldown = (seconds) => {
+    setCooldown(seconds);
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
   };
 
   return (
@@ -154,17 +210,24 @@ const ChatBot = () => {
             <div className="chat-input">
               <input
                 value={input}
+                disabled={isLoading || cooldown > 0} // On bloque l'input
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Votre question..."
+                placeholder={
+                  cooldown > 0
+                    ? `Attendez ${cooldown}s...`
+                    : "Votre question..."
+                }
               />
               <button
                 onClick={handleSend}
                 className="chat-send-btn"
-                disabled={isLoading}
+                disabled={isLoading || cooldown > 0} // On bloque le bouton
               >
                 {isLoading ? (
                   <Loader2 size={18} className="animate-spin" />
+                ) : cooldown > 0 ? (
+                  <span style={{ fontSize: "12px" }}>{cooldown}</span>
                 ) : (
                   <SendHorizontal size={18} />
                 )}
