@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const StatusBadge = () => {
   const [ping, setPing] = useState(null);
   const [isOnline, setIsOnline] = useState(true);
+  const [uptime, setUptime] = useState(99.9);
 
   useEffect(() => {
     const checkStatus = async () => {
@@ -29,10 +30,16 @@ const StatusBadge = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    // Petite logique : si isOnline passe à false, on baisse l'uptime
+    if (!isOnline) {
+      setUptime((prev) => (parseFloat(prev) - 0.001).toFixed(3));
+    }
+  }, [isOnline]);
+
   return (
     <div className="status-badge-container">
       <div className="status-dot-wrapper">
-        {/* Le point devient rouge si l'infra tombe */}
         <div
           className="status-dot"
           style={{ backgroundColor: isOnline ? "#22c55e" : "#ef4444" }}
@@ -52,7 +59,8 @@ const StatusBadge = () => {
         </span>
         <span className="status-divider">|</span>
         <span className="status-text">
-          <span className="status-label">UPTIME:</span> 99.9%
+          {/* MODIFICATION ICI : On utilise la variable uptime dynamique */}
+          <span className="status-label">UPTIME:</span> {uptime}%
         </span>
       </div>
     </div>

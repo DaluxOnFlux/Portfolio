@@ -401,7 +401,6 @@ const App = () => {
             </div>
 
             <div className="footer-bottom">
-              <StatusBadge />
               <p>© 2025 Dalil HIANE</p>
               <div className="infra-stack">
                 <span className="stack-item">
@@ -416,6 +415,8 @@ const App = () => {
                   <Shield size={12} /> Pipeline CI/CD GitHub Actions
                 </span>
               </div>
+              <br />
+              <StatusBadge />
             </div>
           </motion.div>
         </div>
