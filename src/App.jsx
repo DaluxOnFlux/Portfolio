@@ -72,13 +72,35 @@ const App = () => {
       <header className="hero">
         <motion.div
           className="hero-content"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
+          {/* AJOUT DE TA PHOTO ICI */}
+          <motion.div
+            className="hero-image-container"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              delay: 0.2,
+            }}
+          >
+            <img
+              src="/images/photo_id.jpg"
+              alt="Dalil HIANE"
+              className="hero-avatar"
+            />
+            <div className="status-indicator"></div>{" "}
+            {/* Petit point vert "disponible" */}
+          </motion.div>
+
           <h1>
             Dalil <span>HIANE</span>
           </h1>
+
           <div className="current-work-badge">
             <Briefcase size={18} />
             <div className="badge-text-content">
