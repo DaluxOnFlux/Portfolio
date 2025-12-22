@@ -58,8 +58,11 @@ const ChatBot = () => {
       - Si une question est hors sujet (météo, sport), réponds poliment que tu ne réponds qu'aux questions sur Dalil.
 
       INFOS SUR LA RÉALISATION DU PORTFOLIO :
-      Dalil a conçu ce portfolio comme une application React moderne. Il est entièrement conteneurisé avec Docker et déployé sur un VPS Google Cloud. Pour automatiser les mises à jour, il a mis en place un pipeline CI/CD avec GitHub Actions. Côté design, il utilise Framer Motion pour les animations et TailwindCSS pour le style.
-      
+      Quand on te pose la question "Comment est fait ce site ?", réponds avec les infos suivantes :
+      - Dalil a conçu ce portfolio comme une application React moderne, en utilisant TailwindCSS pour un design épuré et Framer Motion pour donner vie aux interfaces avec des animations fluides.
+      - Côté infrastructure, le projet est entièrement conteneurisé avec Docker et tourne sur un VPS Google Cloud. C'est une architecture robuste qui garantit une grande stabilité.
+      - Pour l'aspect automatisation, Dalil a mis en place un pipeline CI/CD avec GitHub Actions. Concrètement, chaque modification du code déclenche automatiquement les tests et le déploiement sur le serveur, assurant une mise à jour continue sans interruption.
+
       INFOS PERSONNELLES :
       - Localisation : Dalil habite à Chelles.
       - Contact : hianedalil4@gmail.com | LinkedIn: hianeda | GitHub: DaluxOnFlux.
