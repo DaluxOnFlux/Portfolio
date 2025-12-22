@@ -13,7 +13,7 @@ import {
   BookOpen,
   GraduationCap,
   School,
-  Terminal,
+  Terminal as TerminalIcon,
   Mail,
   ArrowUp,
   Github,
@@ -21,9 +21,13 @@ import {
 } from "lucide-react";
 import Typewriter from "typewriter-effect";
 import "./App.css";
+import TerminalComponent from "./Terminal.jsx";
 
 const App = () => {
   const [showButton, setShowButton] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,8 +62,58 @@ const App = () => {
 
       {/* Navigation mise à jour */}
       <nav className="glass-nav">
-        <div className="logo">
-          <span>{"{"}</span> DH <span>{"}"}</span>
+        <div
+          className="logo"
+          onMouseEnter={() => setIsLogoHovered(true)}
+          onMouseLeave={() => setIsLogoHovered(false)}
+        >
+          <motion.span
+            animate={{ x: isLogoHovered && !isMobile ? -22 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="bracket"
+          >
+            {"{"}
+          </motion.span>
+
+          <div className="logo-letters">
+            <motion.span
+              animate={{ x: isLogoHovered && !isMobile ? -12 : 0 }}
+              className="letter"
+            >
+              D
+            </motion.span>
+
+            {/* Zone de l'icône centrée */}
+            <div className="terminal-trigger-container">
+              <AnimatePresence>
+                {isLogoHovered && !isMobile && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    onClick={() => setIsTerminalOpen(true)}
+                    className="terminal-trigger-icon"
+                  >
+                    <TerminalIcon size={16} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <motion.span
+              animate={{ x: isLogoHovered && !isMobile ? 12 : 0 }}
+              className="letter"
+            >
+              H
+            </motion.span>
+          </div>
+
+          <motion.span
+            animate={{ x: isLogoHovered && !isMobile ? 22 : 0 }}
+            className="bracket"
+          >
+            {"}"}
+          </motion.span>
         </div>
         <div className="nav-links desktop-nav">
           <a href="#parcours">Parcours</a>
@@ -157,7 +211,7 @@ const App = () => {
       {/* SECTION COMPÉTENCES (Séparée) */}
       <section id="competences">
         <motion.h2 {...fadeInUp} className="section-title">
-          <Terminal size={32} /> Skills
+          <TerminalIcon size={32} /> Skills
         </motion.h2>
         <div className="skills-container">
           <div className="skill-category glass-card">
@@ -380,6 +434,18 @@ const App = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <button
+        className="terminal-toggle"
+        onClick={() => setIsTerminalOpen(true)}
+      >
+        <TerminalIcon size={24} />
+      </button>
+
+      <TerminalComponent
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
 
       <ChatBot />
     </div>

@@ -130,7 +130,7 @@ const ChatBot = () => {
               "Désolé, je ne peux pas répondre à cette question car elle sort du cadre professionnel de ce portfolio.",
           },
         ]);
-        startCooldown(10);
+        startCooldown(6);
         return;
       }
 
@@ -140,7 +140,7 @@ const ChatBot = () => {
           ...prev,
           { role: "assistant", content: botReply },
         ]);
-        startCooldown(10);
+        startCooldown(6);
       }
     } catch (error) {
       setMessages((prev) => [

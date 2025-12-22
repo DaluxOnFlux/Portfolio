@@ -204,8 +204,57 @@ body {
 .logo {
   font-weight: 800;
   font-size: 1.8rem;
-  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Important pour garder l'icône au centre */
+  cursor: pointer;
+  user-select: none;
+  min-width: 120px; /* Réserve l'espace pour éviter que le menu ne bouge */
 }
+
+.bracket {
+  color: var(--primary) !important;
+  display: inline-block;
+}
+
+.logo-letters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* On ne met pas de min-width ici pour que D et H soient collés par défaut */
+}
+
+.letter {
+  color: #ffffff !important;
+  display: inline-block;
+  font-weight: 800;
+}
+
+.terminal-trigger-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* Centre parfaitement le point d'ancrage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0; /* Ne prend pas de place dans le flux normal */
+  height: 0;
+}
+
+.terminal-trigger-icon {
+  cursor: pointer;
+  color: var(--primary);
+  filter: drop-shadow(0 0 5px var(--primary));
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* On s'assure que l'icône elle-même ne bouge pas l'alignement */
+  position: absolute;
+}
+
 .logo span {
   color: var(--primary);
 }
@@ -521,6 +570,174 @@ html {
   align-items: center;
 }
 
+.terminal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.terminal-window {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  /* Curseur par défaut sur toute la fenêtre */
+  cursor: default;
+}
+
+.terminal-header {
+  background: #333;
+  padding: 12px 15px; /* Augmenté pour donner de l'espace aux boutons */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espace les boutons du titre */
+  position: relative;
+  cursor: default;
+  user-select: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-body {
+  padding: 15px;
+  flex: 1;
+  overflow-y: auto;
+  color: #00ff00;
+  /* Curseur texte uniquement dans la zone de contenu */
+  cursor: text;
+}
+
+.t-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.t-btn:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.t-btn.red {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0); /* Cache la croix par défaut (transparente) */
+  transition: all 0.2s ease;
+}
+
+.t-btn.red:hover {
+  color: rgba(0, 0, 0, 0.6); /* La croix devient visible (noir léger) */
+}
+
+.red {
+  background: #ff5f56;
+}
+.yellow {
+  background: #ffbd2e;
+}
+.green {
+  background: #27c93f;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+  z-index: 2; /* S'assure que les boutons sont cliquables par-dessus le titre */
+}
+
+.t-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.red {
+  background: #ff5f56;
+}
+.yellow {
+  background: #ffbd2e;
+}
+.green {
+  background: #27c93f;
+}
+
+.terminal-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+  pointer-events: none; /* Empêche le titre de bloquer les clics sur les boutons */
+}
+
+.terminal-body {
+  padding: 15px;
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  color: #00ff00; /* Vert Matrix */
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Prend toute la largeur */
+  gap: 10px;
+}
+
+.terminal-input-line input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  flex: 1; /* Force l'input à remplir tout l'espace restant */
+  font-family: inherit;
+  font-size: 1rem;
+  min-width: 0; /* Important en Flexbox pour permettre l'extension propre */
+  padding: 0;
+  margin: 0;
+}
+
+.terminal-line {
+  word-break: break-all; /* Permet de voir les commandes très longues sur plusieurs lignes */
+  line-height: 1.5;
+}
+
+.terminal-toggle {
+  display: none !important;
+}
+
+.terminal-close-icon {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.terminal-close-icon:hover {
+  color: #ff5f56;
+}
+
 .chat-messages {
   flex: 1;
   padding: 1rem;
@@ -758,5 +975,16 @@ html {
     height: 70vh; /* Utilise 70% de la hauteur de l'écran sur mobile */
     max-width: 400px;
     right: -10px; /* Petit décalage pour mieux centrer sur l'écran */
+  }
+}
+
+/* Désactive l'icône sur mobile */
+@media (max-width: 768px) {
+  .terminal-trigger-container {
+    display: none !important;
+  }
+
+  .logo-letters {
+    min-width: auto !important;
   }
 }
