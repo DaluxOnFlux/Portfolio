@@ -286,7 +286,7 @@ const App = () => {
             desc="Jeu vidéo développé sous Unity avec création de shaders personnalisés (HLSL/ShaderLab)."
             tech={["Unity", "C#", "ShaderLab", "HLSL"]}
             githubLink="https://github.com/DaluxOnFlux/Whippin-World"
-            notionLink="https://www.notion.so/E4FI-Projet-Alassane-Traore-Dalil-Hiane-2024-2025-16d517b07e2280c78a45d8d081d62273"
+            notionLink="https://www.notion.so/E4FI-Projet-Alassane-Traore-Dalil-Hiane-2024-2025-1-2d1be0e2edb3804ca4ffc1269ed8b38a"
           />
 
           {/* Projet 5: PacMan IA */}
