@@ -688,9 +688,19 @@ html {
 
 .terminal-body {
   padding: 15px;
-  height: calc(100% - 40px);
+  flex: 1;
   overflow-y: auto;
-  color: #00ff00; /* Vert Matrix */
+  color: #00ff00;
+  cursor: text;
+
+  /* Masquer la scrollbar pour Chrome, Safari et Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Masquer la scrollbar pour IE, Edge et Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .terminal-input-line {

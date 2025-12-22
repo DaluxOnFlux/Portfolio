@@ -10,9 +10,23 @@ const Terminal = ({ isOpen, onClose }) => {
   ]);
   const [input, setInput] = useState("");
   const [currentDir, setCurrentDir] = useState("~");
-  const [isWaitingForPassword, setIsWaitingForPassword] = useState(false); // État pour sudo
+  const [isWaitingForPassword, setIsWaitingForPassword] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Logo découpé en lignes pour l'affichage côte à côte
+  const asciiLogoLines = [
+    "                    ",
+    "                    ",
+    "  ██████╗  ██╗  ██╗ ",
+    "  ██╔══██╗ ██║  ██║ ",
+    "  ██║  ██║ ███████║ ",
+    "  ██║  ██║ ██╔══██║ ",
+    "  ██████╔╝ ██║  ██║ ",
+    "  ╚═════╝  ╚═╝  ╚═╝ ",
+    "                    ",
+    "   { DALIL-OS v5 }  ",
+  ];
 
   const fileSystem = {
     "~": { type: "dir", content: ["projects/", "skills/", "about_me.txt"] },
@@ -82,14 +96,27 @@ const Terminal = ({ isOpen, onClose }) => {
   };
 
   const commands = {
+    neofetch: () => ({
+      type: "neofetch",
+      logo: asciiLogoLines,
+      info: [
+        "OS: Dalil-OS v5.0.1",
+        "HOST: ESIEE Paris / Préfecture de Police",
+        "KERNEL: React.js / Framer-Motion",
+        "UPTIME: 5 years of experience",
+        "SHELL: dalil-bash 1.0",
+        "PACKAGES: Docker, Kubernetes, Ansible",
+        "UI: TailwindCSS",
+      ],
+    }),
     help: () =>
-      "Commands: ls, cd [dir], cat [file], clear, whoami, contact, exit, sudo",
+      "Commands: ls, cd [dir], cat [file], clear, whoami, contact, exit, sudo, neofetch",
     whoami: () =>
       "Dalil Hiane - Ingénieur Informatique @ ESIEE Paris & Préfecture de Police.",
     contact: () => "Email: hianedalil4@gmail.com | GitHub: DaluxOnFlux",
     sudo: () => {
       setIsWaitingForPassword(true);
-      return null; // Le message est géré par l'affichage du prompt password
+      return null;
     },
     clear: () => {
       setHistory([]);
@@ -136,7 +163,6 @@ const Terminal = ({ isOpen, onClose }) => {
       const promptInfo = `dalil@portfolio:${currentDir}$`;
 
       if (isWaitingForPassword) {
-        // Logique de réponse après avoir "tapé" le mot de passe
         setHistory((prev) => [
           ...prev,
           {
@@ -170,7 +196,9 @@ const Terminal = ({ isOpen, onClose }) => {
       ];
 
       if (cmd === "sudo") {
-        // On n'ajoute pas d'output tout de suite pour sudo, on attend le password
+        setHistory(newHistory);
+      } else if (result && result.type === "neofetch") {
+        newHistory.push(result);
         setHistory(newHistory);
       } else if (result !== null) {
         newHistory.push({ type: "output", content: result });
@@ -223,6 +251,48 @@ const Terminal = ({ isOpen, onClose }) => {
                         {line.content}
                       </span>
                     </>
+                  ) : line.type === "neofetch" ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "30px",
+                        marginTop: "10px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <pre
+                        style={{
+                          color: "#6366f1",
+                          margin: 0,
+                          lineHeight: "1.2",
+                          fontFamily: "inherit",
+                        }}
+                      >
+                        {line.logo.join("\n")}
+                      </pre>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <span style={{ color: "#6366f1", fontWeight: "bold" }}>
+                          dalil@portfolio
+                        </span>
+                        <span style={{ color: "#ffffff", marginBottom: "5px" }}>
+                          -----------------
+                        </span>
+                        {line.info.map((info, idx) => (
+                          <span
+                            key={idx}
+                            style={{ color: "#a855f7", lineHeight: "1.4" }}
+                          >
+                            {info}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
                     <span style={{ color: "#a855f7", whiteSpace: "pre-wrap" }}>
                       {line.content}
