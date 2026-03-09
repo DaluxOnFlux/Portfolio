@@ -28,18 +28,26 @@ const App = () => {
   const [showButton, setShowButton] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
-  const isMobile = window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setShowButton(window.scrollY > 400);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -50,12 +58,14 @@ const App = () => {
     });
   };
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6 },
-  };
+  const fadeInUp = isMobile
+    ? {} // Pas d'animation sur mobile pour alléger le rendu
+    : {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.6 },
+      };
 
   return (
     <div className="app-container">
@@ -127,16 +137,16 @@ const App = () => {
       <header className="hero">
         <motion.div
           className="hero-content"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: isMobile ? 0.3 : 0.8 }}
         >
           {/* AJOUT DE TA PHOTO ICI */}
           <motion.div
             className="hero-image-container"
-            initial={{ scale: 0 }}
+            initial={{ scale: isMobile ? 1 : 0 }}
             animate={{ scale: 1 }}
-            transition={{
+            transition={isMobile ? { duration: 0.3 } : {
               type: "spring",
               stiffness: 260,
               damping: 20,
@@ -466,7 +476,7 @@ const App = () => {
   );
 };
 
-const ExperienceCard = ({
+const ExperienceCard = React.memo(({
   date,
   title,
   company,
@@ -514,7 +524,7 @@ const ExperienceCard = ({
   </motion.div>
 );
 
-const ProjectCard = ({
+const ProjectCard = React.memo(({
   title,
   tag,
   desc,
@@ -523,19 +533,20 @@ const ProjectCard = ({
   githubLink,
   notionLink,
   videoSrc,
-  isWebsite, // Nouvelle prop pour savoir s'il faut afficher la planète
+  isWebsite,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobileCard = window.innerWidth <= 768;
 
   return (
     <motion.div
       className="project-card glass-card"
-      whileHover={{ y: -10 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      whileHover={isMobileCard ? {} : { y: -10 }}
+      onMouseEnter={() => !isMobileCard && setIsHovered(true)}
+      onMouseLeave={() => !isMobileCard && setIsHovered(false)}
     >
       <div className={`project-video-container ${isHovered ? "visible" : ""}`}>
-        {videoSrc && isHovered && (
+        {videoSrc && isHovered && !isMobileCard && (
           <video
             src={videoSrc}
             autoPlay
