@@ -43,6 +43,7 @@ const Terminal = ({ isOpen, onClose }) => {
         "pacman_ia.txt",
         "quiz_app.txt",
         "gstreamer_recorder.txt",
+        "kirigami_art.txt",
       ],
     },
     skills: { type: "dir", content: ["competences.txt"] },
@@ -65,6 +66,8 @@ const Terminal = ({ isOpen, onClose }) => {
       "NOM: Quiz App\nDESC: Application FullStack Vue3/Flask.\nURL: https://github.com/DaluxOnFlux/quiz_app",
     "gstreamer_recorder.txt":
       "NOM: GStreamer Streamer & Recorder\nDESC: Capture temps réel et diffusion UDP/RTP.\nURL: https://github.com/DaluxOnFlux/gst-screen-recorder",
+    "kirigami_art.txt":
+      "NOM: Objet Réel à l'Art Kirigami\nDESC: De la peluche physique au patron papier via Agisoft et Houdini."
   };
 
   useEffect(() => {

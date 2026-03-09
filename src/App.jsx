@@ -354,6 +354,17 @@ const App = () => {
             tech={["Python", "Dash", "Plotly", "Pandas", "ETL"]}
             link="https://github.com/DaluxOnFlux/Covid19-Data-Analysis-Python"
           />
+
+          {/* Projet Kirigami */}
+          <ProjectCard
+            title="Objet Réel à l'Art Kirigami"
+            tag="Photogrammétrie & Art"
+            videoSrc="/videos/real_art_video.mp4"
+            desc="Numérisation 3D d'une peluche Yoshi rose via photogrammétrie et transformation en modèle papercraft physique de 100 triangles."
+            tech={["Agisoft", "Meshlab", "Houdini", "Graphite", "Pepakura"]}
+            link="/real-art-1.html"
+            isWebsite={true}
+          />
         </div>
       </section>
 
@@ -512,6 +523,7 @@ const ProjectCard = ({
   githubLink,
   notionLink,
   videoSrc,
+  isWebsite, // Nouvelle prop pour savoir s'il faut afficher la planète
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -522,7 +534,6 @@ const ProjectCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Container de la vidéo */}
       <div className={`project-video-container ${isHovered ? "visible" : ""}`}>
         {videoSrc && isHovered && (
           <video
@@ -538,12 +549,13 @@ const ProjectCard = ({
 
       <div className="project-content">
         <div className="project-header">
-          <Github size={20} />
+          {/* L'icône du haut change aussi si c'est un site */}
+          {isWebsite ? <Globe size={20} /> : <Github size={20} />}
           <span className="project-tag">{tag}</span>
         </div>
         <h3>{title}</h3>
         <p>{desc}</p>
-        {/* ... reste de ton code (tech tags et liens) ... */}
+
         <div className="project-tech">
           {tech.map((t, index) => (
             <small key={index}>#{t} </small>
@@ -561,9 +573,19 @@ const ProjectCard = ({
               rel="noreferrer"
               className="project-link"
             >
-              GitHub <Github size={14} />
+              {/* Condition pour le texte et l'icône du bouton */}
+              {isWebsite ? (
+                <>
+                  Projet <Globe size={14} />
+                </>
+              ) : (
+                <>
+                  GitHub <Github size={14} />
+                </>
+              )}
             </a>
           )}
+
           {notionLink && (
             <a
               href={notionLink}
