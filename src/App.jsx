@@ -522,7 +522,10 @@ const ExperienceCard = React.memo(({
       <p>{desc}</p>
     </div>
   </motion.div>
-);
+));
+
+
+
 
 const ProjectCard = React.memo(({
   title,
@@ -612,6 +615,6 @@ const ProjectCard = React.memo(({
       </div>
     </motion.div>
   );
-};
+});
 
 export default App;
