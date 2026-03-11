@@ -378,7 +378,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* FOOTER & SCROLL BUTTON */}
+{/* FOOTER MIS À JOUR */}
       <footer id="contact">
         <div className="footer-content">
           <motion.div
@@ -425,15 +425,15 @@ const App = () => {
               <p>© 2025 Dalil HIANE</p>
               <div className="infra-stack">
                 <span className="stack-item">
-                  <Server size={12} /> Déployé sur VPS Google Cloud
+                  <Server size={12} /> Déployé sur AWS (EC2)
                 </span>
                 <span className="stack-divider">|</span>
                 <span className="stack-item">
-                  <Database size={12} /> Conteneurisé avec Docker
+                  <Database size={12} /> Docker & Nginx Proxy Manager
                 </span>
                 <span className="stack-divider">|</span>
                 <span className="stack-item">
-                  <Shield size={12} /> Pipeline CI/CD GitHub Actions
+                  <Shield size={12} /> CI/CD GitHub Actions
                 </span>
               </div>
               <br />
@@ -442,6 +442,44 @@ const App = () => {
           </motion.div>
         </div>
       </footer>
+
+      {/* BOUTON REMONTER FIXÉ À GAUCHE */}
+      <AnimatePresence>
+        {showButton && (
+          <motion.div
+            className="scroll-to-top"
+            style={{
+              position: 'fixed',
+              bottom: '24px',
+              left: '24px', // Aligné à gauche pour PC et Mobile
+              right: 'auto',
+              zIndex: 1000
+            }}
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <ArrowUp size={24} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <button
+        className="terminal-toggle"
+        onClick={() => setIsTerminalOpen(true)}
+      >
+        <TerminalIcon size={24} />
+      </button>
+
+      <TerminalComponent
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
+
+      <ChatBot />
 
             <AnimatePresence>
               {showButton && (
