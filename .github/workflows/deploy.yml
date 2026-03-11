@@ -36,16 +36,11 @@ jobs:
           script: |
             mkdir -p ~/projects/portfolio
             cd ~/projects/portfolio
-
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-react:latest
-
-            docker stop portfolio-site || true
-            docker rm portfolio-site || true
             
-            docker run -d \
-              --name portfolio-site \
-              --restart always \
-              -p 80:80 \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-react:latest
+            echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" > .env
             
+            docker compose pull
+
+            docker compose up -d --remove-orphans
+
             docker image prune -f
