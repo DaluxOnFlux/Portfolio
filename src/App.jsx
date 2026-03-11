@@ -443,21 +443,28 @@ const App = () => {
         </div>
       </footer>
 
-      <AnimatePresence>
-        {showButton && (
-          <motion.div
-            className="scroll-to-top"
-            onClick={scrollToTop}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ArrowUp size={24} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <AnimatePresence>
+              {showButton && (
+                <motion.div
+                  className="scroll-to-top"
+                  style={{
+                    position: 'fixed',
+                    bottom: '24px',
+                    left: '24px', // Toujours à gauche
+                    right: 'auto', // Désactive le positionnement à droite
+                    zIndex: 1000
+                  }}
+                  onClick={scrollToTop}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <ArrowUp size={24} />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
       <button
         className="terminal-toggle"
