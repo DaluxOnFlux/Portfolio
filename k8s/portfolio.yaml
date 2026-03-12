@@ -15,6 +15,7 @@ spec:
       containers:
         - name: portfolio
           image: daluxonflux/portfolio-react:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
