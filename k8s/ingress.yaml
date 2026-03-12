@@ -11,9 +11,9 @@ spec:
   tls:
     - hosts:
         - hianedalil.com
+        - www.hianedalil.com
         - hianedalil.fr
         - www.hianedalil.fr
-        - www.hianedalil.com
       secretName: portfolio-tls-cert
   rules:
     - host: hianedalil.com
@@ -26,7 +26,27 @@ spec:
                 name: portfolio-service
                 port:
                   number: 80
+    - host: www.hianedalil.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio-service
+                port:
+                  number: 80
     - host: hianedalil.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio-service
+                port:
+                  number: 80
+    - host: www.hianedalil.fr
       http:
         paths:
           - path: /
