@@ -41,7 +41,7 @@ const ChatBot = () => {
     setInput("");
     setIsLoading(true);
 
-    const API_KEY = "AIzaSyCq8-7UWoAsB5mtz39A3C4PbAi-l1DD_0s";
+    const API_KEY = import.meta.env.GEMINI_API_KEY;;
 
 const systemContext = `
   Tu es l'assistant intelligent de Dalil HIANE. Ton rôle est d'échanger de manière fluide, professionnelle et chaleureuse avec les visiteurs de son portfolio.
