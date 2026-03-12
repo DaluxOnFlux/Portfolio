@@ -378,70 +378,74 @@ const App = () => {
         </div>
       </section>
 
-{/* FOOTER MIS À JOUR */}
-      <footer id="contact">
-        <div className="footer-content">
-          <motion.div
-            className="glass-card contact-card"
-            whileInView={{ opacity: 1, scale: 1 }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            viewport={{ once: true }}
-          >
-            <h2>On collabore ?</h2>
-            <p className="footer-subtitle">
-              Actuellement en quête de nouveaux défis en <span>DevOps</span> et{" "}
-              <span>Développement Web</span>.
-            </p>
+{/* FOOTER MIS À JOUR AVEC K8S */}
+<footer id="contact">
+  <div className="footer-content">
+    <motion.div
+      className="glass-card contact-card"
+      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      viewport={{ once: true }}
+    >
+      <h2>On collabore ?</h2>
+      <p className="footer-subtitle">
+        Actuellement en quête de nouveaux défis en <span>DevOps</span> et{" "}
+        <span>Développement Web</span>.
+      </p>
 
-            <div className="social-links">
-              <a
-                href="mailto:hianedalil4@gmail.com"
-                className="social-icon mail"
-              >
-                <Mail size={28} />
-                <span className="tooltip">Email</span>
-              </a>
-              <a
-                href="https://github.com/DaluxOnFlux"
-                target="_blank"
-                rel="noreferrer"
-                className="social-icon github"
-              >
-                <Github size={28} />
-                <span className="tooltip">GitHub</span>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/hianeda/"
-                target="_blank"
-                rel="noreferrer"
-                className="social-icon linkedin"
-              >
-                <Linkedin size={28} />
-                <span className="tooltip">LinkedIn</span>
-              </a>
-            </div>
+      <div className="social-links">
+        <a
+          href="mailto:hianedalil4@gmail.com"
+          className="social-icon mail"
+        >
+          <Mail size={28} />
+          <span className="tooltip">Email</span>
+        </a>
+        <a
+          href="https://github.com/DaluxOnFlux"
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon github"
+        >
+          <Github size={28} />
+          <span className="tooltip">GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/hianeda/"
+          target="_blank"
+          rel="noreferrer"
+          className="social-icon linkedin"
+        >
+          <Linkedin size={28} />
+          <span className="tooltip">LinkedIn</span>
+        </a>
+      </div>
 
-            <div className="footer-bottom">
-              <p>© 2025 Dalil HIANE</p>
-              <div className="infra-stack">
-                <span className="stack-item">
-                  <Server size={12} /> Déployé sur AWS (EC2)
-                </span>
-                <span className="stack-divider">|</span>
-                <span className="stack-item">
-                  <Database size={12} /> Docker & Nginx Proxy Manager
-                </span>
-                <span className="stack-divider">|</span>
-                <span className="stack-item">
-                  <Shield size={12} /> CI/CD GitHub Actions
-                </span>
-              </div>
-              <br />
-              <StatusBadge />
-            </div>
-          </motion.div>
+      <div className="footer-bottom">
+        <p>© 2026 Dalil HIANE</p> {/* Mis à jour en 2026 */}
+        <div className="infra-stack">
+          <span className="stack-item">
+            <Server size={12} /> Cloud AWS (EC2)
+          </span>
+          <span className="stack-divider">|</span>
+          <span className="stack-item">
+            <Database size={12} /> Orchestré par K3s (Kubernetes)
+          </span>
+          <span className="stack-divider">|</span>
+          <span className="stack-item">
+            <Shield size={12} /> Ingress Traefik & Cert-Manager
+          </span>
+          <span className="stack-divider">|</span>
+          <span className="stack-item">
+            <Shield size={12} /> CI/CD GitHub Actions
+          </span>
         </div>
-      </footer>
+        <br />
+        <StatusBadge />
+      </div>
+    </motion.div>
+  </div>
+</footer>
 
       {/* BOUTON REMONTER FIXÉ À GAUCHE */}
       <AnimatePresence>
