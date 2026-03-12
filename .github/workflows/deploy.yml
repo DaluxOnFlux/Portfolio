@@ -46,6 +46,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
             cd ~/projects/portfolio/k8s
-            sudo kubectl apply -f .           
-            sudo kubectl rollout restart deployment portfolio
+            kubectl apply -f portfolio.yaml
+            kubectl apply -f ingress.yaml
+            kubectl rollout restart deployment portfolio
