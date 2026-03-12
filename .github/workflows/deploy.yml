@@ -21,7 +21,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build \
-          --build-arg GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
+          --build-arg VITE_GEMINI_API_KEY=${{ secrets.VITE_GEMINI_API_KEY }} \
           -t ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-react:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-react:latest
           
