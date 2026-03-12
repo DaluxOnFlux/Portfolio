@@ -12,6 +12,8 @@ spec:
     - hosts:
         - hianedalil.com
         - hianedalil.fr
+        - www.hianedalil.fr
+        - www.hianedalil.com
       secretName: portfolio-tls-cert
   rules:
     - host: hianedalil.com
