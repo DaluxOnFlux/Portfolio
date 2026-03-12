@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: portfolio
-          image: ${DOCKER_HUB_USERNAME}/portfolio-react:latest
+          image: daluxonflux/portfolio-react:latest
           ports:
             - containerPort: 80
 ---
