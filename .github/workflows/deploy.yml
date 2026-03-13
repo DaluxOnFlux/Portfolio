@@ -52,6 +52,10 @@ jobs:
           script: |
             export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
             cd ~/projects/portfolio/k8s
-            kubectl apply -f portfolio.yaml
-            kubectl apply -f ingress.yaml
+            kubectl create secret generic db-secrets \
+            --from-literal=postgres-password='${{ secrets.POSTGRES_PASSWORD }}' \
+            --dry-run=client -o yaml | kubectl apply -f -    
+            
+            kubectl apply -f .
+            
             kubectl rollout restart deployment portfolio
