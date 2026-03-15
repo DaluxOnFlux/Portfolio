@@ -1024,6 +1024,10 @@ html {
   .glass-card:hover {
     transform: none;
   }
+
+  .chat-window {
+      background: #0f1120 !important;
+    }
 }
 
 .status-badge-container {
