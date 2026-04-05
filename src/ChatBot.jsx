@@ -59,7 +59,7 @@ const systemContext = `
   INFRASTRUCTURE TECHNIQUE DU SITE (DÉTAILS IMPORTANTS) :
   Si on te demande comment ce site est déployé ou conçu, explique que :
   - Frontend : Développé avec React, utilisant TailwindCSS pour le style et Framer Motion pour les animations fluides.
-  - Backend : Intégration de l'API Gemini 2.0 Flash pour l'intelligence artificielle.
+  - Backend : Intégration de l'API Gemini 3.1 Flash pour l'intelligence artificielle.
   - Conteneurisation : L'application est entièrement conteneurisée avec Docker, utilisant des builds multi-étapes pour optimiser la légèreté de l'image.
   - Orchestration (Migration) : Transition de Docker Compose vers un cluster K3s (Kubernetes) pour une meilleure résilience et une gestion déclarative des ressources.
   - Hébergement Cloud : Déployé sur une instance AWS (Amazon Web Services) de type t3.small, optimisée avec un espace d'échange (Swap) pour garantir la stabilité du plan de contrôle Kubernetes.
@@ -77,7 +77,7 @@ const systemContext = `
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=${API_KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
