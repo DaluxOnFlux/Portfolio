@@ -9,7 +9,6 @@ import {
   Briefcase,
   Database,
   Globe,
-  ExternalLink,
   BookOpen,
   GraduationCap,
   School,
@@ -52,14 +51,11 @@ const App = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const fadeInUp = isMobile
-    ? {} // Pas d'animation sur mobile pour alléger le rendu
+    ? {}
     : {
         initial: { opacity: 0, y: 30 },
         whileInView: { opacity: 1, y: 0 },
@@ -69,9 +65,8 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <div className="blob"></div>
 
-      {/* Navigation mise à jour */}
+      {/* Navigation */}
       <nav className="glass-nav">
         <div
           className="logo"
@@ -94,7 +89,6 @@ const App = () => {
               D
             </motion.span>
 
-            {/* Zone de l'icône centrée */}
             <div className="terminal-trigger-container">
               <AnimatePresence>
                 {isLogoHovered && !isMobile && (
@@ -121,19 +115,22 @@ const App = () => {
 
           <motion.span
             animate={{ x: isLogoHovered && !isMobile ? 22 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="bracket"
           >
             {"}"}
           </motion.span>
         </div>
+
         <div className="nav-links desktop-nav">
           <a href="#parcours">Parcours</a>
-          <a href="#competences">Compétences</a> {/* Ajout */}
+          <a href="#competences">Compétences</a>
           <a href="#projets">Projets</a>
           <a href="#contact">Contact</a>
         </div>
       </nav>
 
+      {/* Hero */}
       <header className="hero">
         <motion.div
           className="hero-content"
@@ -141,43 +138,41 @@ const App = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: isMobile ? 0.3 : 0.8 }}
         >
-          {/* AJOUT DE TA PHOTO ICI */}
           <motion.div
             className="hero-image-container"
             initial={{ scale: isMobile ? 1 : 0 }}
             animate={{ scale: 1 }}
-            transition={isMobile ? { duration: 0.3 } : {
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: 0.2,
-            }}
+            transition={
+              isMobile
+                ? { duration: 0.3 }
+                : { type: "spring", stiffness: 260, damping: 20, delay: 0.2 }
+            }
           >
             <img
               src="/images/photo_id.jpg"
               alt="Dalil HIANE"
               className="hero-avatar"
             />
-            <div className="status-indicator"></div>{" "}
-            {/* Petit point vert "disponible" */}
           </motion.div>
 
-          <h1>
-            Dalil <span>HIANE</span>
-          </h1>
+          <div className="hero-text">
+            <h1>
+              Dalil <span>HIANE</span>
+            </h1>
 
-          <div className="current-work-badge">
-            <Briefcase size={18} />
-            <div className="badge-text-content">
-              <Typewriter
-                options={{
-                  strings: ["Ingénieur DevOps", "Développeur FullStack"],
-                  autoStart: true,
-                  loop: true,
-                  deleteSpeed: 50,
-                }}
-              />
-              <span className="company-name">à la Préfecture de Police</span>
+            <div className="current-work-badge">
+              <Briefcase size={16} />
+              <div className="badge-text-content">
+                <Typewriter
+                  options={{
+                    strings: ["Ingénieur DevOps", "Développeur FullStack"],
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 50,
+                  }}
+                />
+                <span className="company-name">&nbsp;— Préfecture de Police</span>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -186,47 +181,47 @@ const App = () => {
       {/* SECTION PARCOURS */}
       <section id="parcours">
         <motion.h2 {...fadeInUp} className="section-title">
-          <School size={32} /> Mon Parcours
+          <School size={14} /> Parcours
         </motion.h2>
         <div className="timeline">
           <ExperienceCard
-            date="2023 - 2026"
+            date="2023 — 2026"
             title="Ingénieur Informatique (Alternance)"
-            company=" Préfecture de Police de Paris"
-            school=" ESIEE Paris"
+            company="Préfecture de Police de Paris"
+            school="ESIEE Paris"
             schoolUrl="https://www.esiee.fr/"
-            desc="Une formation d'ingénieur en informatique et applications, en trois ans, en alternance, sous contrat d'apprentissage habilité par Commission des Titres d'Ingénieur (CTI)."
-            icon={<Code />}
+            desc="Formation d'ingénieur en informatique et applications, en trois ans, sous contrat d'apprentissage habilité par la Commission des Titres d'Ingénieur (CTI)."
+            icon={<Code size={18} />}
           />
           <ExperienceCard
-            date="2021 - 2023"
-            title="BTS SIO SISR (Option Cybersécurité) (Alternance)"
-            company=" Préfecture de Police de Paris"
-            school=" UTEC Emerainville"
+            date="2021 — 2023"
+            title="BTS SIO SISR — Option Cybersécurité (Alternance)"
+            company="Préfecture de Police de Paris"
+            school="UTEC Emerainville"
             schoolUrl="https://www.utec77.fr/"
             desc="Gestion, administration et sécurisation des infrastructures réseaux."
-            icon={<Shield />}
+            icon={<Shield size={18} />}
           />
           <ExperienceCard
-            date="2018 - 2021"
-            title="BAC Genéral (Spécialité Mathématiques, Sciences de l'Ingénieur)"
-            school=" Gaston Bachelard"
-            company=" Lycée "
+            date="2018 — 2021"
+            title="BAC Général — Mathématiques, Sciences de l'Ingénieur"
+            school="Lycée Gaston Bachelard"
+            company="Chelles"
             schoolUrl="http://www.lyceebachelardchelles.fr"
-            desc="Obtention du Baccalauréat Général"
-            icon={<BookOpen />}
+            desc="Obtention du Baccalauréat Général."
+            icon={<BookOpen size={18} />}
           />
         </div>
       </section>
 
-      {/* SECTION COMPÉTENCES (Séparée) */}
+      {/* SECTION COMPÉTENCES */}
       <section id="competences">
         <motion.h2 {...fadeInUp} className="section-title">
-          <TerminalIcon size={32} /> Skills
+          <TerminalIcon size={14} /> Compétences
         </motion.h2>
         <div className="skills-container">
           <div className="skill-category glass-card">
-            <Layout size={24} className="icon-blue" />
+            <Layout size={20} className="icon-blue" />
             <h3>Front End</h3>
             <div className="tech-tags">
               <span>Next.js</span>
@@ -237,7 +232,7 @@ const App = () => {
             </div>
           </div>
           <div className="skill-category glass-card">
-            <Server size={24} className="icon-purple" />
+            <Server size={20} className="icon-purple" />
             <h3>Back End & Data</h3>
             <div className="tech-tags">
               <span>Node.js</span>
@@ -249,7 +244,7 @@ const App = () => {
             </div>
           </div>
           <div className="skill-category glass-card">
-            <Shield size={24} className="icon-red" />
+            <Shield size={20} className="icon-red" />
             <h3>DevOps & Infra</h3>
             <div className="tech-tags">
               <span>Docker</span>
@@ -262,13 +257,12 @@ const App = () => {
         </div>
       </section>
 
-      {/* SECTION PROJETS (Séparée) */}
+      {/* SECTION PROJETS */}
       <section id="projets">
         <motion.h2 {...fadeInUp} className="section-title">
-          <Database size={32} /> Mes Réalisations
+          <Database size={14} /> Réalisations
         </motion.h2>
         <div className="projects-grid">
-          {/* Projet 1: OpenGL */}
           <ProjectCard
             title="Système Solaire OpenGL"
             tag="Graphisme & Bas Niveau"
@@ -277,8 +271,6 @@ const App = () => {
             tech={["C", "C++", "CMake", "OpenGL"]}
             link="https://github.com/DaluxOnFlux/ProjetOpenGL"
           />
-
-          {/* Projet 2: BTS SISR */}
           <ProjectCard
             title="Laboratoire BTS SIO SISR"
             tag="Infrastructure"
@@ -287,8 +279,6 @@ const App = () => {
             tech={["Linux", "Cisco", "Windows Server", "VPN"]}
             link="https://github.com/DaluxOnFlux/Projets-TP-en-BTS-SIO-SISR"
           />
-
-          {/* Projet 4: Unity */}
           <ProjectCard
             title="Whippin-World"
             tag="Game Development"
@@ -298,8 +288,6 @@ const App = () => {
             githubLink="https://github.com/DaluxOnFlux/Whippin-World"
             notionLink="https://www.notion.so/E4FI-Projet-Alassane-Traore-Dalil-Hiane-2024-2025-1-2d1be0e2edb3804ca4ffc1269ed8b38a"
           />
-
-          {/* Projet 5: PacMan IA */}
           <ProjectCard
             title="PacMan-IA"
             tag="Intelligence Artificielle"
@@ -308,8 +296,6 @@ const App = () => {
             tech={["Python", "Algorithmique"]}
             link="https://github.com/DaluxOnFlux/PacMan-IA-Projet-E3"
           />
-
-          {/* Projet 3: Space Invaders */}
           <ProjectCard
             title="Space Invaders"
             tag="Software Architecture"
@@ -318,59 +304,43 @@ const App = () => {
             tech={["C#", "OOP"]}
             link="https://github.com/DaluxOnFlux/Space-Invaders-Projet-E3"
           />
-
-          {/* Projet 4: Projet Quiz App */}
           <ProjectCard
             title="Quiz App"
-            tag="Dev FRONT & BACK"
+            tag="Dev Front & Back"
             videoSrc="/videos/quizapp.mp4"
-            desc="Une application web complète permettant à un joueur de passer un quiz avec score final, et à un administrateur d'ajouter, modifier ou supprimer des questions via une interface sécurisée."
+            desc="Application web complète permettant de passer un quiz avec score final et une interface admin sécurisée pour gérer les questions."
             tech={["Vite", "Vue3", "Flask", "SQLite", "HTML", "CSS"]}
             link="https://github.com/DaluxOnFlux/quiz_app"
           />
-
-          {/* Projet 5: GStreamer Screen Recorder & Streamer */}
           <ProjectCard
             title="GStreamer Streamer & Recorder"
             tag="Système & Multimédia"
             videoSrc="/videos/pipeline.mp4"
-            desc="Développement d'un système de capture d'écran temps réel avec diffusion réseau UDP (RTP/JPEG) et archivage local simultané via des pipelines GStreamer complexes."
+            desc="Système de capture d'écran temps réel avec diffusion réseau UDP (RTP/JPEG) et archivage local simultané via des pipelines GStreamer complexes."
             tech={["GStreamer", "Direct3D11", "UDP/RTP", "Networking", "Batch"]}
             link="https://github.com/DaluxOnFlux/gst-screen-recorder"
           />
-
-          {/* Projet 6: Pilotage Moteur Pas à Pas (Bas niveau) */}
           <ProjectCard
             title="ARM Assembly Motor Control"
             tag="Systèmes Embarqués"
             videoSrc="/videos/motor.mp4"
-            desc="Développement en Assembleur ARM Cortex-M4 pour le pilotage de moteurs pas à pas. Gestion précise des registres GPIO, des cycles d'horloge et des séquences de commutation de phases."
-            tech={[
-              "Assembly ARM",
-              "Cortex-M4",
-              "Embedded Systems",
-              "GPIO",
-              "Micro-architecture",
-            ]}
+            desc="Développement en Assembleur ARM Cortex-M4 pour le pilotage de moteurs pas à pas. Gestion précise des registres GPIO et des séquences de commutation de phases."
+            tech={["Assembly ARM", "Cortex-M4", "Embedded Systems", "GPIO"]}
             link="https://github.com/DaluxOnFlux/arm-cortex-m4-stepper-control"
           />
-
-          {/* Projet : US Health Data Analysis Dashboard */}
           <ProjectCard
             title="US Health Data Dashboard"
-            tag="Data Engineering & Dash"
+            tag="Data Engineering"
             videoSrc="/videos/dashboard-covid.mp4"
-            desc="Conception d'un dashboard interactif analysant les données de mortalité du CDC aux USA. Intégration d'un pipeline de récupération de données automatisé et visualisations dynamiques."
+            desc="Dashboard interactif analysant les données de mortalité du CDC. Pipeline de récupération automatisé et visualisations dynamiques."
             tech={["Python", "Dash", "Plotly", "Pandas", "ETL"]}
             link="https://github.com/DaluxOnFlux/Covid19-Data-Analysis-Python"
           />
-
-          {/* Projet Kirigami */}
           <ProjectCard
             title="Objet Réel à l'Art Kirigami"
             tag="Photogrammétrie & Art"
             videoSrc="/videos/real_art_video.mp4"
-            desc="Numérisation 3D d'une peluche Yoshi rose via photogrammétrie et transformation en modèle papercraft physique de 100 triangles."
+            desc="Numérisation 3D d'une peluche Yoshi via photogrammétrie et transformation en modèle papercraft physique de 100 triangles."
             tech={["Agisoft", "Meshlab", "Houdini", "Graphite", "Pepakura"]}
             link="/real-art-1.html"
             isWebsite={true}
@@ -378,142 +348,88 @@ const App = () => {
         </div>
       </section>
 
-{/* FOOTER MIS À JOUR AVEC K8S */}
-<footer id="contact">
-  <div className="footer-content">
-    <motion.div
-      className="glass-card contact-card"
-      whileInView={{ opacity: 1, scale: 1 }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      viewport={{ once: true }}
-    >
-      <h2>On collabore ?</h2>
-      <p className="footer-subtitle">
-        Actuellement en quête de nouveaux défis en <span>DevOps</span> et{" "}
-        <span>Développement Web</span>.
-      </p>
+      {/* FOOTER */}
+      <footer id="contact">
+        <div className="footer-content">
+          <motion.div
+            className="contact-card"
+            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2>On collabore ?</h2>
+            <p className="footer-subtitle">
+              Actuellement en quête de nouveaux défis en{" "}
+              <span>DevOps</span> et <span>Développement Web</span>.
+            </p>
 
-      <div className="social-links">
-        <a
-          href="mailto:hianedalil4@gmail.com"
-          className="social-icon mail"
-        >
-          <Mail size={28} />
-          <span className="tooltip">Email</span>
-        </a>
-        <a
-          href="https://github.com/DaluxOnFlux"
-          target="_blank"
-          rel="noreferrer"
-          className="social-icon github"
-        >
-          <Github size={28} />
-          <span className="tooltip">GitHub</span>
-        </a>
-        <a
-          href="https://www.linkedin.com/in/hianeda/"
-          target="_blank"
-          rel="noreferrer"
-          className="social-icon linkedin"
-        >
-          <Linkedin size={28} />
-          <span className="tooltip">LinkedIn</span>
-        </a>
-      </div>
+            <div className="social-links">
+              <a href="mailto:hianedalil4@gmail.com" className="social-icon mail">
+                <Mail size={22} />
+                <span className="tooltip">Email</span>
+              </a>
+              <a
+                href="https://github.com/DaluxOnFlux"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon github"
+              >
+                <Github size={22} />
+                <span className="tooltip">GitHub</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/hianeda/"
+                target="_blank"
+                rel="noreferrer"
+                className="social-icon linkedin"
+              >
+                <Linkedin size={22} />
+                <span className="tooltip">LinkedIn</span>
+              </a>
+            </div>
 
-      <div className="footer-bottom">
-        <p>© 2026 Dalil HIANE</p> {/* Mis à jour en 2026 */}
-        <div className="infra-stack">
-          <span className="stack-item">
-            <Server size={12} /> Cloud AWS (EC2)
-          </span>
-          <span className="stack-divider">|</span>
-          <span className="stack-item">
-            <Database size={12} /> Orchestré par K3s (Kubernetes)
-          </span>
-          <span className="stack-divider">|</span>
-          <span className="stack-item">
-            <Shield size={12} /> Ingress Traefik & Cert-Manager
-          </span>
-          <span className="stack-divider">|</span>
-          <span className="stack-item">
-            <Shield size={12} /> CI/CD GitHub Actions
-          </span>
+            <div className="footer-bottom">
+              <p>© 2026 Dalil HIANE</p>
+              <div className="infra-stack">
+                <span className="stack-item">
+                  <Server size={11} /> AWS EC2
+                </span>
+                <span className="stack-divider">|</span>
+                <span className="stack-item">
+                  <Database size={11} /> K3s (Kubernetes)
+                </span>
+                <span className="stack-divider">|</span>
+                <span className="stack-item">
+                  <Shield size={11} /> Traefik + Cert-Manager
+                </span>
+                <span className="stack-divider">|</span>
+                <span className="stack-item">
+                  <Shield size={11} /> GitHub Actions CI/CD
+                </span>
+              </div>
+              <StatusBadge />
+            </div>
+          </motion.div>
         </div>
-        <br />
-        <StatusBadge />
-      </div>
-    </motion.div>
-  </div>
-</footer>
+      </footer>
 
-      {/* BOUTON REMONTER FIXÉ À GAUCHE */}
+      {/* Scroll to top */}
       <AnimatePresence>
         {showButton && (
           <motion.div
             className="scroll-to-top"
-            style={{
-              position: 'fixed',
-              bottom: '24px',
-              left: '24px', // Aligné à gauche pour PC et Mobile
-              right: 'auto',
-              zIndex: 1000
-            }}
             onClick={scrollToTop}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{ position: "fixed", bottom: "24px", left: "24px", zIndex: 1000 }}
           >
-            <ArrowUp size={24} />
+            <ArrowUp size={18} />
           </motion.div>
         )}
       </AnimatePresence>
-
-      <button
-        className="terminal-toggle"
-        onClick={() => setIsTerminalOpen(true)}
-      >
-        <TerminalIcon size={24} />
-      </button>
-
-      <TerminalComponent
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-      />
-
-      <ChatBot />
-
-            <AnimatePresence>
-              {showButton && (
-                <motion.div
-                  className="scroll-to-top"
-                  style={{
-                    position: 'fixed',
-                    bottom: '24px',
-                    left: '24px', // Toujours à gauche
-                    right: 'auto', // Désactive le positionnement à droite
-                    zIndex: 1000
-                  }}
-                  onClick={scrollToTop}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <ArrowUp size={24} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-      <button
-        className="terminal-toggle"
-        onClick={() => setIsTerminalOpen(true)}
-      >
-        <TerminalIcon size={24} />
-      </button>
 
       <TerminalComponent
         isOpen={isTerminalOpen}
@@ -548,15 +464,14 @@ const ExperienceCard = React.memo(({
     <div className="exp-content">
       <span className="exp-date">{date}</span>
       <h3>{title}</h3>
-
       <div className="exp-locations">
         <div className="loc-item">
-          <Briefcase size={14} className="icon-pro" />
+          <Briefcase size={13} className="icon-pro" />
           <span>{company}</span>
         </div>
-        <div className="loc-separator"> </div>
+        <div className="loc-separator">/</div>
         <div className="loc-item">
-          <GraduationCap size={16} className="icon-edu" />
+          <GraduationCap size={14} className="icon-edu" />
           <a
             href={schoolUrl}
             target="_blank"
@@ -567,14 +482,10 @@ const ExperienceCard = React.memo(({
           </a>
         </div>
       </div>
-
       <p>{desc}</p>
     </div>
   </motion.div>
 ));
-
-
-
 
 const ProjectCard = React.memo(({
   title,
@@ -593,7 +504,7 @@ const ProjectCard = React.memo(({
   return (
     <motion.div
       className="project-card glass-card"
-      whileHover={isMobileCard ? {} : { y: -10 }}
+      whileHover={isMobileCard ? {} : { y: -4 }}
       onMouseEnter={() => !isMobileCard && setIsHovered(true)}
       onMouseLeave={() => !isMobileCard && setIsHovered(false)}
     >
@@ -612,8 +523,7 @@ const ProjectCard = React.memo(({
 
       <div className="project-content">
         <div className="project-header">
-          {/* L'icône du haut change aussi si c'est un site */}
-          {isWebsite ? <Globe size={20} /> : <Github size={20} />}
+          {isWebsite ? <Globe size={14} /> : <Github size={14} />}
           <span className="project-tag">{tag}</span>
         </div>
         <h3>{title}</h3>
@@ -625,10 +535,7 @@ const ProjectCard = React.memo(({
           ))}
         </div>
 
-        <div
-          className="project-links-container"
-          style={{ display: "flex", gap: "15px", marginTop: "15px" }}
-        >
+        <div className="project-links-container">
           {(githubLink || link) && (
             <a
               href={githubLink || link}
@@ -636,28 +543,21 @@ const ProjectCard = React.memo(({
               rel="noreferrer"
               className="project-link"
             >
-              {/* Condition pour le texte et l'icône du bouton */}
               {isWebsite ? (
-                <>
-                  Projet <Globe size={14} />
-                </>
+                <>Projet <Globe size={12} /></>
               ) : (
-                <>
-                  GitHub <Github size={14} />
-                </>
+                <>GitHub <Github size={12} /></>
               )}
             </a>
           )}
-
           {notionLink && (
             <a
               href={notionLink}
               target="_blank"
               rel="noreferrer"
               className="project-link"
-              style={{ color: "#ffffff" }}
             >
-              Notion <BookOpen size={14} />
+              Notion <BookOpen size={12} />
             </a>
           )}
         </div>

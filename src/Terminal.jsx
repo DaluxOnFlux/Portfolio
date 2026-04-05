@@ -283,7 +283,7 @@ const Terminal = ({ isOpen, onClose }) => {
                 <div key={i} className="terminal-line">
                   {line.type === "command" ? (
                     <>
-                      <span style={{ color: "#6366f1", fontWeight: "bold" }}>
+                      <span style={{ color: "#d4ff4d", fontWeight: "bold" }}>
                         {line.prompt}
                       </span>
                       <span style={{ color: "#ffffff", marginLeft: "10px" }}>
@@ -301,7 +301,7 @@ const Terminal = ({ isOpen, onClose }) => {
                     >
                       <pre
                         style={{
-                          color: "#6366f1",
+                          color: "#d4ff4d",
                           margin: 0,
                           lineHeight: "1.2",
                           fontFamily: "inherit",
@@ -316,7 +316,7 @@ const Terminal = ({ isOpen, onClose }) => {
                           justifyContent: "center",
                         }}
                       >
-                        <span style={{ color: "#6366f1", fontWeight: "bold" }}>
+                        <span style={{ color: "#d4ff4d", fontWeight: "bold" }}>
                           dalil@portfolio
                         </span>
                         <span style={{ color: "#ffffff", marginBottom: "5px" }}>
@@ -325,7 +325,7 @@ const Terminal = ({ isOpen, onClose }) => {
                         {line.info.map((info, idx) => (
                           <span
                             key={idx}
-                            style={{ color: "#a855f7", lineHeight: "1.4" }}
+                            style={{ color: "#00e676", lineHeight: "1.4" }}
                           >
                             {info}
                           </span>
@@ -333,14 +333,14 @@ const Terminal = ({ isOpen, onClose }) => {
                       </div>
                     </div>
                   ) : (
-                    <span style={{ color: "#a855f7", whiteSpace: "pre-wrap" }}>
+                    <span style={{ color: "#00e676", whiteSpace: "pre-wrap" }}>
                       {line.content}
                     </span>
                   )}
                 </div>
               ))}
               <div className="terminal-input-line">
-                <span style={{ color: "#6366f1", fontWeight: "bold" }}>
+                <span style={{ color: "#d4ff4d", fontWeight: "bold" }}>
                   {isWaitingForPassword
                     ? "[sudo] password for visitor:"
                     : `dalil@portfolio:${currentDir}$`}
